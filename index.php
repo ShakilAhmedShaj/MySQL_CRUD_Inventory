@@ -141,6 +141,30 @@ require 'dbconfig/config.php';
 							}
 						
 					}
+                }
+                
+                else if(isset($_POST['delete_btn']))
+				{
+					if($_POST['pid']=="")
+					{
+						echo '<script type="text/javascript">alert("Enter PID to delete product")</script>';
+					}
+				else{
+						$pid = $_POST['pid'];
+						$query = "delete from productsinfotbl 
+							WHERE pid=$pid";
+						$query_run = mysqli_query($con,$query);
+						if($query_run)
+						{
+							echo '<script type="text/javascript">alert("Product deleted")</script>';
+						}
+						else
+						{
+							echo '<script type="text/javascript">alert("Error in query")</script>';
+						}
+					}
+				
+				
 				}
             ?>
         </div>
