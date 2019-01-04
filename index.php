@@ -66,7 +66,7 @@ require 'dbconfig/config.php';
                 <label><b>Product ID</b> </label><button id="btn_go" name="fetch_btn" type="submit">Go</button>
 
                 <!-- <input type="text" placeholder="Enter Product ID" name="pid" value="<?php echo $pid; ?>"> -->
-                <input type="text" placeholder="Enter Product ID" name="pid" value="<?php echo @$_POST['pid'];?>" >
+                <input type="text" placeholder="Enter Product ID" name="pid" value="<?php echo @$_POST['pid'];?>">
                 <label><b>Product Name</b></label>
                 <input type="text" placeholder="Enter Product Name" name="pname" value="<?php echo $pname; ?>">
                 <label><b>Product Brand</b></label>
@@ -110,6 +110,38 @@ require 'dbconfig/config.php';
                     }
                 }
             }
+
+            else if(isset($_POST['update_btn']))
+				{
+					//echo '<script type="text/javascript">alert("Update Clicked")</script>';
+					if($_POST['pid']=="" || $_POST['pname']=="" || $_POST['pbrand']=="" || $_POST['pcost']=="" || $_POST['pquantity']=="")
+					{
+						echo '<script type="text/javascript">alert("Enter Data in All fields")</script>';
+					}
+					else
+					{
+						@$pid=$_POST['pid'];
+						@$pname=$_POST['pname'];
+						@$pbrand=$_POST['pbrand'];
+						@$pcost=$_POST['pcost'];
+						@$pquantity=$_POST['pquantity'];
+						
+						$query = "update productsinfotbl 
+							SET pname='$pname',pbrand='$pbrand',pcost=$pcost,pquantity=$pquantity 
+							WHERE pid=$pid";
+							
+						$query_run = mysqli_query($con,$query);
+				
+							if($query_run)
+							{
+								echo '<script type="text/javascript">alert("Product Updated successfully")</script>';
+							}
+							else{
+								echo '<script type="text/javascript">alert("Error")</script>';
+							}
+						
+					}
+				}
             ?>
         </div>
     </div>
